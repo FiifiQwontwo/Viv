@@ -32,6 +32,7 @@ class StudentAdmin(admin.ModelAdmin):
     search_fields = ('first_name', 'last_name', 'index_number')
     ordering = ('last_name', 'first_name')
     fieldsets = ()
+    prepopulated_fields = {'slug': ('index_number',)}
 
 
 @admin.register(Lecturer)
@@ -41,6 +42,7 @@ class LecturerAdmin(admin.ModelAdmin):
     search_fields = ('last_name', 'faculty__faculty_name')
     ordering = ('title',)
     fieldsets = ()
+    prepopulated_fields = {'slug': ('staff_id',)}
 
 
 @admin.register(CustomUser)
