@@ -2,7 +2,7 @@
 <html lang="en">
 {#	{%  static '' %}#}
 	<head>
-		<title>Metronic - the world's #1 selling Bootstrap Admin Theme Ecosystem for HTML, Vue, React, Angular & Laravel by Keenthemes</title>
+		<title>{%  block title %} {{ section.title }}{% endblock %}</title>
 		<link rel="canonical" href="../../../index.html" />
 		<link rel="shortcut icon" href="{%  static 'assets/media/logos/favicon.ico' %}" />
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
