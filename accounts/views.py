@@ -8,3 +8,7 @@ def get_user_agents(request):
 
 def dashboard(request):
     return render(request, 'dashboard.html')
+
+
+def login(request):
+    return render(request, 'login/login.html')
