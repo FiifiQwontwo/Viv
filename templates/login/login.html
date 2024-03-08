@@ -39,23 +39,17 @@
 									<a href="reset-password.html" class="link-primary">Forgot Password ?</a>
 									<!--end::Link-->
 								</div>
-								<!--end::Wrapper-->
-								<!--begin::Submit button-->
+							
 								<div class="d-grid mb-10">
 									<button type="submit" id="kt_sign_in_submit" class="btn btn-primary">
-										<!--begin::Indicator label-->
+										
 										<span class="indicator-label">Sign In</span>
-										<!--end::Indicator label-->
-										<!--begin::Indicator progress-->
-										<span class="indicator-progress">Please wait... 
-										<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-										<!--end::Indicator progress-->
+                                        
 									</button>
 								</div>
-								<!--end::Submit button-->
-								<!--begin::Sign up-->
+							
 								<div class="text-gray-500 text-center fw-semibold fs-6">Not a Member yet? 
-								<a href="sign-up.html" class="link-primary">Sign up</a></div>
+								<a href="{% url 'accounts:student_signup_url' %}" class="link-primary">Sign up</a></div>
 								<!--end::Sign up-->
 							</form>
 							<!--end::Form-->
@@ -66,7 +60,7 @@
 				</div>
 				<!--end::Body-->
 			</div>
-			<!--end::Authentication - Sign-in-->
+
 		</div>
     </body>
 	
