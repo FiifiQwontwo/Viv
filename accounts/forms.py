@@ -21,6 +21,13 @@ class StudentRegistrationForm(UserCreationForm):
     index_number = forms.CharField(label='Index Number', max_length=15)
     phone = forms.CharField(label='Phone Number', max_length=15)
     level = forms.ChoiceField(label='Level', choices=LevelChoices)
+    slug = forms.SlugField(label='Slug')
+
+    def clean_slug(self):
+        slug = self.cleaned_data['slug']
+        if not slug:
+            slug = self.cleaned_data['index_number']
+        return slug
 
 
 class LecturerRegistrationForm(UserCreationForm):
@@ -39,7 +46,7 @@ class LecturerRegistrationForm(UserCreationForm):
 class StudentProfileForm(forms.ModelForm):
     class Meta:
         model = Student
-        fields = ('first_name', 'last_name', 'index_number', 'level',  'course', 'phone')
+        fields = ('first_name', 'last_name', 'index_number', 'level', 'course', 'phone')
 
 
 class LecturerProfileForm(forms.ModelForm):

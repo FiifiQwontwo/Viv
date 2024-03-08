@@ -1,0 +1,14 @@
+{% autoescape off %}
+    {% block content %}
+Hi {{ user.last_name }}, <br>
+    Please confirm your registration.
+    http://{{domain}}{% url  'accounts:student_activate_url' uidb64=uid token=token %}
+ <h3>Your Devices:</h3>
+    <ul>
+        {% for user_agent_info_item in user_agent_info %}
+            <li>The request Device:{{ user_agent_info_item.user_agent }} -</li>
+            <li> When it was request :{{ user_agent_info_item.created_at }}</li>
+        {% endfor %}
+    </ul>
+    {% endblock %}
+{% endautoescape %}
