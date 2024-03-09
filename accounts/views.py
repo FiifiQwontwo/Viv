@@ -9,6 +9,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django_user_agents.utils import get_user_agent
 
+from course.models import Course
 from djangoProject12 import settings
 from .forms import StudentRegistrationForm
 from .models import Student, UserAgentInfo
@@ -72,6 +73,7 @@ def student_signup(request):
                 slug=form.cleaned_data['slug'],
 
             )
+            print(student)
             if 'next' in request.POST:
                 return redirect(request.POST.get('next'))
             current_site = get_current_site(request)
@@ -96,6 +98,8 @@ def student_signup(request):
             return redirect('/accounts/login/?command=verification&email=' + email)
     else:
         form = StudentRegistrationForm()
+        courses = Course.objects.all()
+
 
     return render(request, 'login/student_signup.html')
 
