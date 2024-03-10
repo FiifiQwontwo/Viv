@@ -54,8 +54,6 @@ def login(request):
 
 def student_signup(request):
     if request.method == 'POST':
-        user_agent_str = get_user_agent(request)
-        user_agent_info = UserAgentInfo.objects.create(user_agent=user_agent_str)
         form = StudentRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
@@ -73,7 +71,7 @@ def student_signup(request):
                 slug=form.cleaned_data['slug'],
 
             )
-            print(student)
+
             if 'next' in request.POST:
                 return redirect(request.POST.get('next'))
             current_site = get_current_site(request)
@@ -84,7 +82,6 @@ def student_signup(request):
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': default_token_generator.make_token(user),
-                'user_agent_info': [user_agent_info]
 
             })
             mail_subject = "Account Activation"
@@ -98,10 +95,9 @@ def student_signup(request):
             return redirect('/accounts/login/?command=verification&email=' + email)
     else:
         form = StudentRegistrationForm()
-        courses = Course.objects.all()
+        courses = Course.objects.all()  # Retrieve all courses from the database
 
-
-    return render(request, 'login/student_signup.html')
+    return render(request, 'login/student_signup.html', {'form': form})
 
 
 def student_profile(request):
