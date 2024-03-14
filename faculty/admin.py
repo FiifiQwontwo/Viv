@@ -32,7 +32,7 @@ class StudentAdmin(admin.ModelAdmin):
     search_fields = ('first_name', 'last_name', 'index_number')
     ordering = ('last_name', 'first_name')
     fieldsets = ()
-    prepopulated_fields = {'slug': ('index_number',)}
+    # prepopulated_fields = {'slug': ('index_number',)}
 
 
 @admin.register(Lecturer)

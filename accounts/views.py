@@ -68,7 +68,7 @@ def student_signup(request):
                 phone=form.cleaned_data['phone'],
                 course=form.cleaned_data['course'],
                 level=form.cleaned_data['level'],
-                slug=form.cleaned_data['slug'],
+                # slug=form.cleaned_data['slug'],
 
             )
 
