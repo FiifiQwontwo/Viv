@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import get_user_model, authenticate
+from django.contrib.auth import get_user_model, authenticate,login as auth_login
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
@@ -24,7 +24,7 @@ def dashboard(request):
     return render(request, 'dashboard.html')
 
 
-def login(request):
+def custom_login(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -32,7 +32,7 @@ def login(request):
 
         if user is not None:
             if user.is_active:
-                login(request, user)
+                auth_login(request, user)
                 messages.success(request, 'Login successful')
                 user_agent = get_user_agents(request)
 
