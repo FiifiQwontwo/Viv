@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import get_user_model, authenticate,login as auth_login
+from django.contrib.auth import get_user_model, authenticate, login as auth_login
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
@@ -106,6 +106,15 @@ def student_profile(request):
 
 def lecturer_profile(request):
     return render(request, 'login/lecturerprofile.html')
+
+
+def lecturer_activate(request, uidb64, token):
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        User = get_user_model()
+        user = User._default_manager.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
 
 
 def activate(request, uidb64, token):

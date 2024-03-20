@@ -51,17 +51,13 @@ class Student(models.Model):
     level = models.CharField(max_length=15, choices=LevelChoices, help_text='your student level', blank=True, null=True)
     phone = models.CharField(max_length=15, blank=True, null=True)
     course = models.ForeignKey(Course, on_delete=models.RESTRICT, related_name='students_course', blank=True, null=True)
-    # slug = models.SlugField(max_length=100, unique=True)
+
 
     def __str__(self):
         return self.last_name + ' ' + self.first_name
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
-    #
-    # def save(self, *args, **kwargs):
-    #     self.slug = slugify(self.index_number)
-    #     super(Student, self).save(*args, **kwargs)
 
 
 LecTitle = (
@@ -81,17 +77,12 @@ class Lecturer(models.Model):
     last_name = models.CharField(max_length=150)
     phone = models.CharField(max_length=11, unique=True)
     faculty = models.ForeignKey(Faculty, on_delete=models.RESTRICT, related_name="Staff_faculty")
-    # slug = models.SlugField(max_length=100, unique=True)
 
     def __str__(self):
         return self.last_name + ' ' + self.first_name
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
-
-    # def save(self, *args, **kwargs):
-    #     self.slug = slugify(self.staff_id)
-    #     super(Lecturer, self).save(*args, **kwargs)
 
 
 class UserAgentInfo(models.Model):
