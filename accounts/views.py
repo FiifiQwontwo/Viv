@@ -8,11 +8,11 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django_user_agents.utils import get_user_agent
-
+from faculty.models import Faculty
 from course.models import Course
 from djangoProject12 import settings
-from .forms import StudentRegistrationForm
-from .models import Student, UserAgentInfo
+from .forms import StudentRegistrationForm, LecturerRegistrationForm
+from .models import Student, UserAgentInfo, Lecturer
 
 
 # Create your views here.
@@ -115,6 +115,14 @@ def lecturer_activate(request, uidb64, token):
         user = User._default_manager.get(pk=uid)
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
+    if user is not None and default_token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
+        messages.success(request, "Congratulations! You Account have successfully ")
+        return redirect('accounts:login_url')
+    else:
+        messages.error(request, "Invalid activation token")
+        return redirect('accounts:lecturer_signup_url')
 
 
 def activate(request, uidb64, token):
@@ -133,3 +141,44 @@ def activate(request, uidb64, token):
     else:
         messages.error(request, 'Invalid activation Link.')
         return redirect('accounts:student_signup_url')
+
+
+def lecturer_registration(request):
+    if request.method == 'POST':
+        form = LecturerRegistrationForm(request.POST or None, request.FILES)
+        if form.is_valid():
+            user = is_lecturer = True
+            user.save()
+            lecturer = Lecturer.objects.create(
+                user=user,
+                staff_id=form.cleaned_data['staff_id'],
+                title=form.cleaned_data['title'],
+                first_name=form.cleaned_data['first_name'],
+                last_name=form.cleaned_data['last_name'],
+                phone=form.cleaned_data['phone'],
+                faculty=form.cleaned_data['faculty'],
+
+            )
+
+            current_site = get_current_site(request)
+            email = form.cleaned_data['email']
+            html_template = 'lverification.html'
+            html_message = render_to_string(html_template, {
+                'user': user,
+                'name': Lecturer.get_full_name(),
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': default_token_generator.make_token(user),
+            })
+            mail_subject = "ACCOUNT ACTIVATION"
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [email]
+            message = EmailMessage(mail_subject, html_message, email_from, recipient_list)
+            message.content_type = 'html'
+            message.send()
+            messages.success(request, 'Signup Successfully Success Please check your mail for further instructions')
+            return redirect('/accounts/login/?command=verification&email=' + email)
+    else:
+        form = LecturerRegistrationForm()
+        faculty = Faculty.objects.all()
+    return render(request, 'login/signupL.html', {'form': form})
