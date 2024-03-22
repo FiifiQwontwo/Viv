@@ -32,3 +32,5 @@ def lecturer_required(view_function):
         return view_function(request, *args, **kwargs)
 
     return wrapper_view
+
+
