@@ -1,4 +1,4 @@
-from django.contrib import messages
+from django.contrib import messages, auth
 from django.contrib.auth import get_user_model, authenticate, login as auth_login
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
@@ -68,7 +68,6 @@ def student_signup(request):
                 phone=form.cleaned_data['phone'],
                 course=form.cleaned_data['course'],
                 level=form.cleaned_data['level'],
-
 
             )
 
@@ -181,3 +180,9 @@ def lecturer_registration(request):
         form = LecturerRegistrationForm()
         faculty = Faculty.objects.all()
     return render(request, 'login/signupL.html', {'form': form})
+
+
+def logout(request):
+    auth.logout(request)
+    messages.success(request, "You have been logged out")
+    return redirect('accounts:login_url')
