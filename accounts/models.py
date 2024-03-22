@@ -52,7 +52,6 @@ class Student(models.Model):
     phone = models.CharField(max_length=15, blank=True, null=True)
     course = models.ForeignKey(Course, on_delete=models.RESTRICT, related_name='students_course', blank=True, null=True)
 
-
     def __str__(self):
         return self.last_name + ' ' + self.first_name
 
@@ -72,7 +71,6 @@ LecTitle = (
 class Lecturer(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     staff_id = models.CharField(max_length=100, unique=True)
-    title = models.CharField(max_length=20,choices=LecTitle)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
     phone = models.CharField(max_length=11, unique=True)
@@ -114,6 +112,3 @@ class UserAgentInfo(models.Model):
                 messages.error(f"Error in get_country_from_ip: {e}")
 
                 return None
-
-
-

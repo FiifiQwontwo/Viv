@@ -37,10 +37,9 @@ class StudentAdmin(admin.ModelAdmin):
 
 @admin.register(Lecturer)
 class LecturerAdmin(admin.ModelAdmin):
-    list_display = ('title', 'last_name', 'first_name')
+    list_display = ( 'last_name', 'first_name')
     list_filter = ('faculty',)
     search_fields = ('last_name', 'faculty__faculty_name')
-    ordering = ('title',)
     fieldsets = ()
     # prepopulated_fields = {'slug': ('staff_id',)}
 

@@ -147,12 +147,12 @@ def lecturer_registration(request):
     if request.method == 'POST':
         form = LecturerRegistrationForm(request.POST or None, request.FILES)
         if form.is_valid():
-            user = is_lecturer = True
+            user = form.save(commit=False)
+            user.is_lecturer = True  # Set is_lecturer attribute to True
             user.save()
             lecturer = Lecturer.objects.create(
                 user=user,
                 staff_id=form.cleaned_data['staff_id'],
-                title=form.cleaned_data['title'],
                 first_name=form.cleaned_data['first_name'],
                 last_name=form.cleaned_data['last_name'],
                 phone=form.cleaned_data['phone'],
@@ -165,7 +165,6 @@ def lecturer_registration(request):
             html_template = 'lverification.html'
             html_message = render_to_string(html_template, {
                 'user': user,
-                'name': Lecturer.get_full_name(),
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': default_token_generator.make_token(user),
