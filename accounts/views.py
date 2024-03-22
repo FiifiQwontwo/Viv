@@ -68,7 +68,7 @@ def student_signup(request):
                 phone=form.cleaned_data['phone'],
                 course=form.cleaned_data['course'],
                 level=form.cleaned_data['level'],
-                # slug=form.cleaned_data['slug'],
+
 
             )
 
@@ -95,7 +95,7 @@ def student_signup(request):
             return redirect('/accounts/login/?command=verification&email=' + email)
     else:
         form = StudentRegistrationForm()
-        courses = Course.objects.all()  # Retrieve all courses from the database
+        courses = Course.objects.all()
 
     return render(request, 'login/student_signup.html', {'form': form})
 
