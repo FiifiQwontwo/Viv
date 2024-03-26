@@ -37,27 +37,6 @@ LevelChoices = (
 )
 
 
-class Student(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=150)
-    last_name = models.CharField(max_length=150)
-    index_number = models.CharField(max_length=15, validators=[
-        RegexValidator(regex=r"^\w{2}\d{8}$", message='Enter a valid pattern like CS20200015',
-                       ),
-    ],
-                                    help_text='Format: CS20200015'
-
-                                    )
-    level = models.CharField(max_length=15, choices=LevelChoices, help_text='your student level', blank=True, null=True)
-    phone = models.CharField(max_length=15, blank=True, null=True)
-    course = models.ForeignKey(Course, on_delete=models.RESTRICT, related_name='students_course', blank=True, null=True)
-
-    def __str__(self):
-        return self.last_name + ' ' + self.first_name
-
-    def get_full_name(self):
-        return f"{self.first_name} {self.last_name}"
-
 
 LecTitle = (
     ('Dr', 'Doctor'),
@@ -75,6 +54,30 @@ class Lecturer(models.Model):
     last_name = models.CharField(max_length=150)
     phone = models.CharField(max_length=11, unique=True)
     faculty = models.ForeignKey(Faculty, on_delete=models.RESTRICT, related_name="Staff_faculty")
+
+    def __str__(self):
+        return self.last_name + ' ' + self.first_name
+
+    def get_full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
+
+class Student(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=150)
+    last_name = models.CharField(max_length=150)
+    index_number = models.CharField(max_length=15, validators=[
+        RegexValidator(regex=r"^\w{2}\d{8}$", message='Enter a valid pattern like CS20200015',
+                       ),
+    ],
+                                    help_text='Format: CS20200015'
+
+                                    )
+    level = models.CharField(max_length=15, choices=LevelChoices, help_text='your student level', blank=True, null=True)
+    phone = models.CharField(max_length=15, blank=True, null=True)
+    course = models.ForeignKey(Course, on_delete=models.RESTRICT, related_name='students_course', blank=True, null=True)
+    supervisor = models.ForeignKey(Lecturer, on_delete=models.RESTRICT, related_name='Supervisor', blank=True,
+                                   null=True)
 
     def __str__(self):
         return self.last_name + ' ' + self.first_name

@@ -57,7 +57,16 @@
                                     <option value="{{ choice.0 }}">{{ choice.1 }}</option>
                                 {% endfor %}
                             </select>
+                        </div> 
+                        <div class="fv-row mb-8">
+                            <select id="supervisor" class="form-control" name="supervisor">
+                                <option value="">Select Supervisor</option>
+                                {% for choice in form.supervisor.field.choices %}
+                                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
+                    
                         <div class="fv-row mb-8">
                             <select id="level" class="form-control" name="level">
                                 <option value="1">Level 100</option>
