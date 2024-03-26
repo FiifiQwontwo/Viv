@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'course.apps.CourseConfig',
     'django_user_agents',
     'document.apps.DocumentConfig',
+    'chapter.apps.ChapterConfig',
 ]
 
 MIDDLEWARE = [
