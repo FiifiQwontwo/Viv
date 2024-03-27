@@ -187,3 +187,6 @@ def logout(request):
     auth.logout(request)
     messages.success(request, "You have been logged out")
     return redirect('accounts:login_url')
+
+
+# def 404(r)
