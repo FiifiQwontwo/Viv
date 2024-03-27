@@ -7,6 +7,7 @@ app_name = 'accounts'
 urlpatterns = [
     path('', dashboard, name='dashboard_url'),
     path('login/', custom_login, name='login_url'),
+
     # student
     path('sup/', student_signup, name='student_signup_url'),
     path('student/', student_profile, name='student_profile_url'),
