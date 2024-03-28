@@ -3,28 +3,30 @@ from django.shortcuts import redirect
 from django.http import HttpResponseForbidden
 
 
+def user_is_staff(user):
+    return user.is_authenticated and user.is_staff
+
+
 def staff_required(view_func):
     def _wrapped_view(request, *args, **kwargs):
         if not request.user.is_authenticated or not request.user.is_staff:
-            return HttpResponseForbidden("You are not allowed to view this")
+            return HttpResponseForbidden("You don't have permission to access this page.")
         return view_func(request, *args, **kwargs)
 
     return _wrapped_view
 
 
-def student_required(view_function):
-    def wrapper_view(request, *args, **kwargs):
+def student_required(view_func):
+    def _wrapped_view(request, *args, **kwargs):
         if not request.user.is_authenticated or not request.user.is_student:
-            return HttpResponseForbidden("You are not allowed to view")
-        return view_function(request, *args, **kwargs)
+            return HttpResponseForbidden("You don't have permission to access this page.")
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view
 
-    return wrapper_view
 
-
-def lecturer_required(view_function):
-    def wrapper_view(request, *args, **kwargs):
+def lecturer_required(view_func):
+    def _wrapped_view(request, *args, **kwargs):
         if not request.user.is_authenticated or not request.user.is_lecturer:
-            return HttpResponseForbidden("You are not allowed to view")
-        return view_function(request, *args, **kwargs)
-
-    return wrapper_view
+            return HttpResponseForbidden("You don't have permission to access this page.")
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view

@@ -148,7 +148,7 @@ def lecturer_registration(request):
         form = LecturerRegistrationForm(request.POST or None, request.FILES)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_lecturer = True  # Set is_lecturer attribute to True
+            user.is_lecturer = True
             user.save()
             lecturer = Lecturer.objects.create(
                 user=user,
