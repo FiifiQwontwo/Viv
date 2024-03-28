@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import dashboard, custom_login, student_signup, activate, student_profile, lecturer_profile, \
-    lecturer_registration, lecturer_activate
+    lecturer_registration, lecturer_activate, custom_404
 
 app_name = 'accounts'
 
@@ -17,3 +17,5 @@ urlpatterns = [
     path('lect/signup/', lecturer_registration, name='lecturer_signup_url'),
     path('lect/activate/<uidb64>/<token>/', lecturer_activate, name='lecturer_activate_url'),
 ]
+
+handler404 = custom_404

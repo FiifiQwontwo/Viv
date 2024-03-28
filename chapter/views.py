@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.contrib import messages
 from django.shortcuts import render, redirect
@@ -8,6 +9,7 @@ from .forms import ChapterCreationForm
 
 # Create your views here.
 @staff_required
+@login_required(login_url='accounts:login_url')
 def ListChapter(request):
     asd = Chapter.objects.all()
     context = {
@@ -17,6 +19,7 @@ def ListChapter(request):
 
 
 @staff_required
+@login_required(login_url='accounts:login_url')
 def CreateChapter(request):
     if request.method == 'POST':
         form = ChapterCreationForm(request.POST)

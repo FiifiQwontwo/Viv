@@ -113,7 +113,7 @@ def lecturer_activate(request, uidb64, token):
         uid = urlsafe_base64_decode(uidb64).decode()
         User = get_user_model()
         user = User._default_manager.get(pk=uid)
-    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
@@ -189,4 +189,5 @@ def logout(request):
     return redirect('accounts:login_url')
 
 
-# def 404(r)
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)
