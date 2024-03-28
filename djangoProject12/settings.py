@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django_user_agents',
     'document.apps.DocumentConfig',
     'chapter.apps.ChapterConfig',
+    'project.apps.ProjectConfig',
 ]
 
 MIDDLEWARE = [

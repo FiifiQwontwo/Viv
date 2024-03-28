@@ -8,7 +8,7 @@ from .forms import ChapterCreationForm
 
 
 # Create your views here.
-
+@staff_required
 def ListChapter(request):
     asd = Chapter.objects.all()
     context = {
@@ -17,8 +17,7 @@ def ListChapter(request):
     return render(request, 'admin/allChapters.html', context)
 
 
-
-
+@staff_required
 def CreateChapter(request):
     if request.method == 'POST':
         form = ChapterCreationForm(request.POST)
