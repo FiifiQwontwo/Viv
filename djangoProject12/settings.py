@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'document.apps.DocumentConfig',
     'chapter.apps.ChapterConfig',
     'project.apps.ProjectConfig',
+    'reviews.apps.ReviewsConfig',
 ]
 
 MIDDLEWARE = [

@@ -8,9 +8,7 @@ from accounts.models import Student
 
 class Document(models.Model):
     title = models.CharField(max_length=100)
-    content = models.FileField(upload_to='documents/%Y/%m/%d/', validators=[
-        FileExtensionValidator(allowed_extensions=['pdf', 'doc', 'docx'])
-    ])
+    content = models.FileField(upload_to='documents/%Y/%m/%d/', validators=[FileExtensionValidator(allowed_extensions=['pdf', 'doc', 'docx'])])
     chapter = models.ForeignKey(Chapter, on_delete=models.RESTRICT)
     student = models.ForeignKey(Student, on_delete=models.RESTRICT)
     created_at = models.DateTimeField(auto_now_add=True)
