@@ -7,12 +7,13 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django_user_agents.utils import get_user_agent
 from faculty.models import Faculty
 from course.models import Course
 from djangoProject12 import settings
 from .forms import StudentRegistrationForm, LecturerRegistrationForm
-from .models import Student, UserAgentInfo, Lecturer
+from .models import Student, UserAgentInfo, Lecturer, CustomUser
+from django_user_agents.utils import get_user_agent
+from django.contrib.auth.models import AnonymousUser
 
 
 # Create your views here.
@@ -191,3 +192,40 @@ def logout(request):
 
 def custom_404(request, exception):
     return render(request, '404.html', status=404)
+
+
+def forgetPassword(request):
+    if request.method == 'POST':
+        user_agents_str = get_user_agents(request)
+
+        try:
+            anonymous_user = CustomUser.objects.get(email='anonymous')
+        except CustomUser.DoesNotExist:
+            anonymous_user = CustomUser.objects.create(email='anonymous')
+        user_agent_info = UserAgentInfo.objects.create(user=anonymous_user, user_agent=user_agents_str)
+
+        email = request.POST.get('email', '')
+        if CustomUser.objects.filter(email=email).exists():
+            user = CustomUser.objects.get(email__exact=email)
+
+            current_site = get_current_site(request)
+            mail_subject = "Reset Accounts"
+            message = render_to_string('forget/resetverification.html', {
+                'user': user,
+                'domain': current_site,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': default_token_generator.make_token(user),
+                'user_agent_info': [user_agent_info]
+
+            })
+
+            to_email = email
+            send_email = EmailMessage(mail_subject, message, to=[to_email])
+            send_email.send()
+
+            messages.success(request, "Password reset mail has been sent to your mail")
+            return redirect('accounts:login_url')
+        else:
+            messages.error(request, "Account Doesnot Exists")
+            return redirect('accounts:login_url')
+    return render(request, 'forget/forgetpassword.html')
