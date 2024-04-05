@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% autoescape off %}
+Hi {{ user.email }},
+    Please reset your password with the link below.
+    http://{{ domain }}{% url  'accounts:reset_password_validate_url' uidb64=uid token=token %}
+  <h3>Your Devices:</h3>
+    <ul>
+        {% for user_agent_info_item in user_agent_info %}
+            <li>{{ user_agent_info_item.user_agent }} -</li>
+            <li>{{ user_agent_info_item.created_at }}</li>
+        {% endfor %}
+    </ul>
+{% endautoescape %}
