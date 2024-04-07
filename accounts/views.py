@@ -227,7 +227,7 @@ def forgetPassword(request):
             return redirect('accounts:login_url')
         else:
             messages.error(request, "Account Doesnot Exists")
-            return redirect('accounts:login_url')
+            return redirect('accounts:forget_password')
     return render(request, 'forget/forgetpassword.html')
 
 
@@ -241,8 +241,27 @@ def resetpasswordValiate(request, uidb64, token):
     if user is not None and default_token_generator.check_token(user, token):
         request.session['uid'] = uid
         messages.success(request, 'Please Reset Your Password')
-        return redirect('accounts:forget_password')
+        return redirect('accounts:resetpassword_url')
 
     else:
         messages.error(request, 'This link is expired')
         return redirect('accounts:resetpassword_url')
+
+
+def resetpassword(request):
+    if request.method == 'POST':
+        password = request.POST['password']
+        confirm_password = request.POST['password']
+
+        if password == confirm_password:
+            uid = request.session.get('uid')
+            user = CustomUser.objects.get(pk=uid)
+            user.set_password(password)
+            user.save()
+            messages.success(request, "Reset Password was successfully")
+            return redirect('accounts:login_url')
+        else:
+            messages.error(request, 'passwords do not match')
+            return redirect('accounts:resetpassword_url')
+    else:
+        return render(request, 'forget/passrest.html')
