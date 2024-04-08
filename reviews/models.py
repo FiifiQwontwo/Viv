@@ -1,5 +1,4 @@
 from django.db import models
-
 from accounts.models import Lecturer, Student
 from document.models import Document
 
