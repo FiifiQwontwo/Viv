@@ -7,4 +7,5 @@ urlpatterns = [
     path('chapters/', include('chapter.urls')),
     path('docs/', include('document.urls')),
     path('das/', include('faculty.urls')),
+    path('reviews/', include('reviews.urls')),
 ]
