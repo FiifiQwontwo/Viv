@@ -59,7 +59,7 @@
                                 {% endif %}
                                 
                                 
-                        </a> <a href="timeline.html" class="dropdown-item has-icon"> <i class="fas fa-bolt"></i>
+                        </a> <a href="#" class="dropdown-item has-icon"> <i class="fas fa-bolt"></i>
                         Activities
                     </a> <a href="#" class="dropdown-item has-icon"> <i class="fas fa-cog"></i>
                         Settings
@@ -89,8 +89,8 @@
                         <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                 data-feather="briefcase"></i><span>Widgets</span></a>
                         <ul class="dropdown-menu">
-                            <li><a class="nav-link" href="widget-chart.html">Chart Widgets</a></li>
-                            <li><a class="nav-link" href="widget-data.html">Data Widgets</a></li>
+                            <li><a class="nav-link" href="#">Chart Widgets</a></li>
+                            <li><a class="nav-link" href="#">Data Widgets</a></li>
                         </ul>
                     </li>
 
@@ -100,8 +100,10 @@
                                 data-feather="user-check"></i><span>Auth</span></a>
                         <ul class="dropdown-menu">
                             <li><a href="{% url 'accounts:login_url' %}">Login</a></li>
+                            {% if user.is_staff %}
                             <li><a href="{% url 'accounts:lecturer_signup_url' %}">Register Staff</a></li>
                             <li><a href="{% url 'accounts:student_signup_url' %}">Register Student </a></li>
+                            {% endif %}
                             <li><a href="{% url 'accounts:forget_password' %}">Forgot Password</a></li>
                             <li><a href="{% url 'accounts:logout_url' %}">Log out</a></li>
                         </ul>
@@ -150,7 +152,7 @@
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
                                             <div class="banner-img">
-                                                <img src="assets/img/banner/2.png" alt="">
+                                                <img src="{% static 'ways/assets/img/banner/2.png' %}" alt="">
                                             </div>
                                         </div>
                                     </div>
@@ -195,7 +197,7 @@
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
                                             <div class="banner-img">
-                                                <img src="assets/img/banner/4.png" alt="">
+                                                <img src="{% static 'ways/assets/img/banner/4.png' %}" alt="">
                                             </div>
                                         </div>
                                     </div>
@@ -319,4 +321,3 @@
 <script src="{% static 'ways/assets/js/scripts.js' %}"></script>
 <script src="{% static 'ways/assets/js/custom.js' %}"></script>
 </body>
-</html>
