@@ -34,7 +34,7 @@
                 </ul>
             </div>
             <ul class="navbar-nav navbar-right">
-            {%  include 'alerts.html' %}
+                {% include 'alerts.html' %}
                 <li class="dropdown"><a href="#" data-toggle="dropdown"
                                         class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image"
                                                                                                          src="{% static 'ways/assets/img/user.png' %}"
@@ -94,7 +94,16 @@
                         <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                 data-feather="briefcase"></i><span>Reviews</span></a>
                         <ul class="dropdown-menu">
-                            <li><a class="nav-link" href="{% url 'reviews:list_review_url' %}">List Reviews</a></li>
+                            {% if user.is_lecturer %}
+                                <li><a class="nav-link" href="{% url 'reviews:list_review_url' %}">List Reviews</a></li>
+                            {% elif user.is_student %}
+                                <li><a class="nav-link" href="{% url 'reviews:student_list_review_url' %}">List
+                                    Reviews</a></li>
+                            {% elif user.is_staff %}
+                                <li><a class="nav-link" href="{% url 'reviews:all_reviews_urls' %}">List Reviews</a></li>
+                                {% else %}
+                                <li><a class="nav-link" href="#">List Reviews</a></li>
+                            {% endif %}
                             <li><a class="nav-link" href="#">Data Widgets</a></li>
                         </ul>
                     </li>

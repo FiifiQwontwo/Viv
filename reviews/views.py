@@ -54,3 +54,11 @@ def student_list_reviews(request):
         reviews = []
 
     return render(request, 'student_list_reviews.html', {'reviews': reviews})
+
+
+def all_reviews(request):
+    reviews = Review.objects.all()
+    context = {
+        'reviews': reviews
+    }
+    return render(request, 'all_reviews.html', context)

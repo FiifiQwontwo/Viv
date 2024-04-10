@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} DefensePro| Student Reviews  {% endblock %}
+{% block title %} DefensePro|Admin Reviews  {% endblock %}
 {% load static %}
 {% block content %}
 
@@ -9,7 +9,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4> &nbsp;{{ user.student.get_full_name }} </h4>
+                            <h4> Admin &nbsp;All Reviews </h4>
                             <div class="card-header-form">
                                 <form>
                                     <div class="input-group">
@@ -28,10 +28,10 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Document</th>
-                                        <th>Reviewed By</th>
-                                        <th>Reviewed at</th>
+                                        <th>Student</th>
+                                        <th>Reviewed At</th>
                                         <th>Status</th>
-                                        <th>Action</th>
+                                        <th>Reviewed By</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -44,7 +44,7 @@
                                             <td>
 
 
-                                               {{ review.reviewer.title }} &nbsp;{{ review.reviewer.get_full_name }}
+                                                {{ review.document.student.get_full_name }}
 
                                             </td>
                                             <td>{{ review.document.created_at }}</td>
@@ -61,7 +61,7 @@
                                             </td>
 
                                             <td>
-                                                <!-- Add action buttons here -->
+                                               {{ review.reviewer.title }}&nbsp; {{review.reviewer.get_full_name}}
                                             </td>
                                         </tr>
                                     {% endfor %}
