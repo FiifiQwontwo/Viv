@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from accounts.models import Lecturer
+from accounts.models import Lecturer, Student
 from document.models import Document
 from .models import Review
 from .forms import ReviewUploads
@@ -42,3 +42,15 @@ def list_reviews(request):
         reviews = []
 
     return render(request, 'list_reviews.html', {'reviews': reviews})
+
+
+def student_list_reviews(request):
+    if request.user.is_authenticated and request.user.is_student:
+        student = Student.objects.get(user=request.user)
+
+        # Filter the reviews by the lecturer
+        reviews = Review.objects.filter(student=student)
+    else:
+        reviews = []
+
+    return render(request, 'student_list_reviews.html', {'reviews': reviews})

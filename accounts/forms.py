@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser, Student, LevelChoices, Lecturer
+from .models import CustomUser, Student, LevelChoices, Lecturer, LecTitle
 from faculty.models import Faculty
 from course.models import Course
 
@@ -30,6 +30,7 @@ class LecturerRegistrationForm(UserCreationForm):
         fields = ('email', 'password1', 'password2')
 
     first_name = forms.CharField(label='First Name', max_length=50)
+    title = forms.ChoiceField(label='Title', choices=LecTitle)
     last_name = forms.CharField(label='Last Name', max_length=50)
     staff_id = forms.CharField(label='Staff_Id', max_length=50)
     faculty = forms.ModelChoiceField(label='faculty', queryset=Faculty.objects.all())

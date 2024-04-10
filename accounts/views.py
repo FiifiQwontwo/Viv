@@ -154,11 +154,11 @@ def lecturer_registration(request):
             lecturer = Lecturer.objects.create(
                 user=user,
                 staff_id=form.cleaned_data['staff_id'],
+                title=form.cleaned_data['title'],
                 first_name=form.cleaned_data['first_name'],
                 last_name=form.cleaned_data['last_name'],
                 phone=form.cleaned_data['phone'],
                 faculty=form.cleaned_data['faculty'],
-
             )
 
             current_site = get_current_site(request)
@@ -176,8 +176,10 @@ def lecturer_registration(request):
             message = EmailMessage(mail_subject, html_message, email_from, recipient_list)
             message.content_type = 'html'
             message.send()
-            messages.success(request, 'Signup Successfully Success Please check your mail for further instructions')
+            messages.success(request, 'Signup Successfully Success. Please check your mail for further instructions.')
             return redirect('/accounts/login/?command=verification&email=' + email)
+        else:
+            messages.error(request, 'Error occurred while processing your registration. Please check the form entries.')
     else:
         form = LecturerRegistrationForm()
         faculty = Faculty.objects.all()

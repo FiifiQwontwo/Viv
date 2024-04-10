@@ -36,8 +36,6 @@ LevelChoices = (
     ('4', 'level 400'),
 )
 
-
-
 LecTitle = (
     ('Dr', 'Doctor'),
     ('Prof', 'Professor'),
@@ -50,6 +48,7 @@ LecTitle = (
 class Lecturer(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     staff_id = models.CharField(max_length=100, unique=True)
+    title = models.CharField(choices=LecTitle, max_length=25, blank=True, null=True)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
     phone = models.CharField(max_length=11, unique=True)
