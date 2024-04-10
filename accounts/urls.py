@@ -1,12 +1,13 @@
 from django.urls import path
 from .views import dashboard, custom_login, student_signup, activate, student_profile, lecturer_profile, \
-    lecturer_registration, lecturer_activate, custom_404, forgetPassword, resetpassword,resetpasswordValiate
+    lecturer_registration, lecturer_activate, custom_404, forgetPassword, resetpassword,resetpasswordValiate, logout
 
 app_name = 'accounts'
 
 urlpatterns = [
     path('', dashboard, name='dashboard_url'),
     path('login/', custom_login, name='login_url'),
+    path('asd/', logout, name='logout_url'),
     path('fgtpass/', forgetPassword, name='forget_password'),
     path('resetpassword/', resetpassword, name='resetpassword_url'),
     path('resetpasswordv/<uidb64>/<token>/', resetpasswordValiate, name='reset_password_validate_url'),

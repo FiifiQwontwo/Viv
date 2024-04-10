@@ -1,6 +1,6 @@
 {% load static %}
 <head>
-    <title>Otika - Admin Dashboard Template</title>
+    <title>{% block title %} {{ section.title }}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'ways/assets/css/app.min.css' %}">
     <link rel="stylesheet" href="{% static 'ways/assets/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'ways/assets/css/components.css' %}">
@@ -49,7 +49,7 @@
                         Settings
                     </a>
                         <div class="dropdown-divider"></div>
-                        <a href="auth-login.html" class="dropdown-item has-icon text-danger"> <i
+                        <a href="{% url 'accounts:logout_url' %}" class="dropdown-item has-icon text-danger"> <i
                                 class="fas fa-sign-out-alt"></i>
                             Logout
                         </a>
@@ -87,7 +87,7 @@
                             <li><a href="{% url 'accounts:lecturer_signup_url' %}">Register Staff</a></li>
                             <li><a href="{% url 'accounts:student_signup_url' %}">Register Student </a></li>
                             <li><a href="{% url 'accounts:forget_password' %}">Forgot Password</a></li>
-                            <li><a href="auth-reset-password.html">Reset Password</a></li>
+                            <li><a href="{% url 'accounts:logout_url' %}">Log out</a></li>
                         </ul>
                     </li>
 
