@@ -2,6 +2,10 @@ from django.contrib import admin
 from .models import Faculty
 from course.models import Course
 from accounts.models import Student, Lecturer, CustomUser
+from reviews.models import Review
+from chapter.models import Chapter
+from document.models import Document
+from project.models import Project
 
 # Register your models here.
 
@@ -55,3 +59,9 @@ class CustomUserAdmin(admin.ModelAdmin):
     list_filter = ()
     # Used to make password read only
     fieldsets = ()
+
+
+admin.site.register(Review)
+admin.site.register(Document)
+admin.site.register(Chapter)
+admin.site.register(Project)
