@@ -19,5 +19,3 @@ class Review(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="reviewee")
 
-    def __str__(self):
-        return self.document

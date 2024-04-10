@@ -56,8 +56,7 @@
                             <a href="{% url 'accounts:lect_profile_url' %}" class="dropdown-item has-icon"> <i class="far
 										fa-user"></i> {{ user.lecturer.get_full_name }} Profile
                         {% else %}
-                            <i class="far
-										fa-user"></i>
+                            <i class="far fa-user"></i>
                         {% endif %}
 
 
@@ -90,9 +89,10 @@
                         <a href="{% url 'accounts:dashboard_url' %}" class="nav-link"><i
                                 data-feather="monitor"></i><span>Dashboard</span></a>
                     </li>
+                   
                     <li class="dropdown">
                         <a href="#" class="menu-toggle nav-link has-dropdown"><i
-                                data-feather="briefcase"></i><span>Reviews</span></a>
+                                data-feather="eye"></i><span>Reviews</span></a>
                         <ul class="dropdown-menu">
                             {% if user.is_lecturer %}
                                 <li><a class="nav-link" href="{% url 'reviews:list_review_url' %}">List Reviews</a></li>
@@ -100,11 +100,26 @@
                                 <li><a class="nav-link" href="{% url 'reviews:student_list_review_url' %}">List
                                     Reviews</a></li>
                             {% elif user.is_staff %}
-                                <li><a class="nav-link" href="{% url 'reviews:all_reviews_urls' %}">List Reviews</a></li>
-                                {% else %}
+                                <li><a class="nav-link" href="{% url 'reviews:all_reviews_urls' %}">List Reviews</a>
+                                </li>
+                            {% else %}
                                 <li><a class="nav-link" href="#">List Reviews</a></li>
                             {% endif %}
                             <li><a class="nav-link" href="#">Data Widgets</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-header">Documents</li>
+                    <li class="dropdown">
+                        <a href="#" class="menu-toggle nav-link has-dropdown"><i
+                                data-feather="file-text"></i><span>Documents</span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'Documents:ListDocuments_urls' %}">List Documents</a></li>
+                            {% if user.is_staff %}
+                                <li><a href="{% url 'accounts:lecturer_signup_url' %}">Register Staff</a></li>
+                                <li><a href="{% url 'accounts:student_signup_url' %}">Register Student </a></li>
+                            {% endif %}
+                            <li><a href="{% url 'accounts:forget_password' %}">Forgot Password</a></li>
+                            <li><a href="{% url 'accounts:logout_url' %}">Log out</a></li>
                         </ul>
                     </li>
 
