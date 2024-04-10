@@ -40,9 +40,25 @@
                                                                                                          class="user-img-radious-style">
                     <span class="d-sm-none d-lg-inline-block"></span></a>
                     <div class="dropdown-menu dropdown-menu-right pullDown">
-                        <div class="dropdown-title">Hello Sarah Smith</div>
-                        <a href="profile.html" class="dropdown-item has-icon"> <i class="far
-										fa-user"></i> Profile
+                        {%  if user.is_student %}  
+                        <div class="dropdown-title">{{user.student.get_full_name}}</div>
+                        {% elif user.is_lecturer %}
+                        <div class="dropdown-title">{{user.lecturer.get_full_name}}</div>
+                        {%  else %}
+                         <div class="dropdown-title">admin</div>
+                        {% endif %}
+                         {%  if user.is_student %}
+                        <a href="{% url 'accounts:student_profile_url' %}" class="dropdown-item has-icon"> <i class="far
+										fa-user"></i>   {{user.student.get_full_name}} Profile
+                            {% elif user.is_lecturer %}
+                            <a href="{% url 'accounts:lect_profile_url' %}" class="dropdown-item has-icon"> <i class="far
+										fa-user"></i> {{user.lecturer.get_full_name}} Profile
+                                {% else %}
+                                <i class="far
+										fa-user"></i>
+                                {% endif %}
+                                
+                                
                         </a> <a href="timeline.html" class="dropdown-item has-icon"> <i class="fas fa-bolt"></i>
                         Activities
                     </a> <a href="#" class="dropdown-item has-icon"> <i class="fas fa-cog"></i>
