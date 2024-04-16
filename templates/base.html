@@ -115,7 +115,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="{% url 'Documents:ListDocuments_urls' %}">List Documents</a></li>
                             {% if user.is_staff %}
-                                <li><a href="{% url 'accounts:lecturer_signup_url' %}">Register Staff</a></li>
+                                <li><a href="{% url 'Documents:newDocuments_urls' %}">add a Document</a></li>
                                 <li><a href="{% url 'accounts:student_signup_url' %}">Register Student </a></li>
                             {% endif %}
                             <li><a href="{% url 'accounts:forget_password' %}">Forgot Password</a></li>

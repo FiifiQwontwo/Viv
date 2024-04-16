@@ -62,3 +62,4 @@ def all_reviews(request):
         'reviews': reviews
     }
     return render(request, 'all_reviews.html', context)
+
