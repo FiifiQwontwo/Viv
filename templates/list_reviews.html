@@ -9,7 +9,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>{{ user.lecturer.title }} &nbsp;{{ user.lecturer.get_full_name }} </h4>
+                            <h4>{{ user.lecturer.title }} &nbsp;{{ user.lecturer.get_full_name }} &nbsp; <a href="{% url 'reviews:create_review_url'  documents.id %}" > add review </a> </h4>
                             <div class="card-header-form">
                                 <form>
                                     <div class="input-group">

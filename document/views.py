@@ -24,6 +24,19 @@ def ListDocuments(request):
         raise Http404()
 
 
+def docDetails(request,id):
+    try:
+        dsdetails = Document.objects.filter(id=id)
+        context ={
+            'dsdetails': dsdetails
+        }
+        return render(request,'docs/dosdetails.html', context)
+    except Document.DoesNotExist:
+        return Http404()
+    except Exception as e:
+        return Http404(" An error occurred while processing")
+
+
 def addDocs(request):
     if request.method == 'POST':
         form = DocumentUploader(request.POST, request.FILES)
@@ -32,7 +45,7 @@ def addDocs(request):
                 docs = form.save(commit=False)
                 docs.save()
                 messages.success(request, 'Document  added  successfully.')
-                return redirect('Documents:ListDocuments_urls')
+                return redirect('documents:ListDocuments_urls')
 
             except IntegrityError as e:
                 messages.error(request, f'An error occurred while adding the document: {e}')

@@ -1,11 +1,4 @@
-{% block content %}
-    {% for docs in docs %}
-        <h1>{{ docs.title }}</h1>
-        <p>Document Content: {{ docs.content }}</p>
-
-        {% if docs.content %}
-            <p>PDF URL: {{ docs.content.url }}</p>
-            <embed src="{{ docs.content.url }}" type="application/pdf" width="100%" height="600px" />
-        {% endif %}
-    {% endfor %}
+{% extends 'base.html' %}
+{%  load static %}
+{%  block content %}
 {% endblock %}
