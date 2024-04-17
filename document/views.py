@@ -24,13 +24,13 @@ def ListDocuments(request):
         raise Http404()
 
 
-def docDetails(request,id):
+def docDetails(request, id):
     try:
         dsdetails = Document.objects.filter(id=id)
-        context ={
+        context = {
             'dsdetails': dsdetails
         }
-        return render(request,'docs/dosdetails.html', context)
+        return render(request, 'docs/dosdetails.html', context)
     except Document.DoesNotExist:
         return Http404()
     except Exception as e:
@@ -42,16 +42,20 @@ def addDocs(request):
         form = DocumentUploader(request.POST, request.FILES)
         if form.is_valid():
             try:
-                docs = form.save(commit=False)
-                docs.save()
-                messages.success(request, 'Document  added  successfully.')
+
+                student = request.user.student
+
+                document = form.save(commit=False)
+                document.student = student
+                document.save()
+
+                messages.success(request, 'Document added successfully.')
                 return redirect('documents:ListDocuments_urls')
 
             except IntegrityError as e:
                 messages.error(request, f'An error occurred while adding the document: {e}')
         else:
-            messages.error(request, 'Invalid form data. Please check the field.')
-
+            messages.error(request, 'Invalid form data. Please check the fields.')
     else:
         form = DocumentUploader()
 

@@ -9,5 +9,5 @@ class DocumentUploader(forms.ModelForm):
         model = Document
         fields = ('title', 'content', 'chapter', 'student')
 
-        chapter = forms.ModelChoiceField(label='chapter', queryset=Chapter.objects.all)
-        student = forms.ModelChoiceField(label='student', queryset=Student.objects.all)
+        chapter = forms.ModelChoiceField(label='chapter', queryset=Chapter.objects.all())
+
