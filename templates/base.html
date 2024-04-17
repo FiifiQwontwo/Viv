@@ -5,6 +5,9 @@
     <link rel="stylesheet" href="{% static 'ways/assets/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'ways/assets/css/components.css' %}">
     <link rel="stylesheet" href="{% static 'ways/assets/css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'ways/assets/bundles/summernote/summernote-bs4.css' %}">
+    <link rel="stylesheet" href="{% static 'ways/assets/bundles/jquery-selectric/selectric.css' %}">
+    <link rel="stylesheet" href="{% static 'ways/assets/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.css' %}">
     <link rel='shortcut icon' type='image/x-icon' href='{% static 'ways/assets/img/asd.png' %}'/>
 </head>
 <body>
@@ -115,7 +118,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="{% url 'documents:ListDocuments_urls' %}">List Documents</a></li>
                             <li><a href="{% url 'documents:newDocuments_urls' %}">upload a Document</a></li>
-                            
+
                         </ul>
                     </li>
 
@@ -177,7 +180,7 @@
                                            class="selectgroup-input select-sidebar" checked>
                                     <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
                                           data-original-title="Dark Sidebar"><i class="fas fa-moon"></i></span>
-                                </label> 
+                                </label>
                             </div>
                         </div>
                         <div class="p-15 border-bottom">
@@ -254,4 +257,9 @@
 <script src="{% static 'ways/assets/js/page/index.js' %}"></script>
 <script src="{% static 'ways/assets/js/scripts.js' %}"></script>
 <script src="{% static 'ways/assets/js/custom.js' %}"></script>
+<script src="{% static 'ways/assets/js/page/create-post.js' %}"></script>
+<script src="{% static 'ways/assets/bundles/summernote/summernote-bs4.js' %}"></script>
+<script src="{% static 'ways/assets/bundles/jquery-selectric/jquery.selectric.min.js' %}"></script>
+<script src="{% static 'ways/assets/bundles/upload-preview/assets/js/jquery.uploadPreview.min.js' %}"></script>
+<script src="{% static 'ways/assets/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js' %}"></script>
 </body>
