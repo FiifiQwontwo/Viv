@@ -38,29 +38,32 @@ def docDetails(request, id):
 
 
 def addDocs(request):
+    if not request.user.is_authenticated:
+        return redirect('accounts:login_url')
+
     if request.method == 'POST':
         form = DocumentUploader(request.POST, request.FILES)
         if form.is_valid():
             try:
 
-                student = request.user.student
-
                 document = form.save(commit=False)
-                document.student = student
+                document.student = request.user.student
                 document.save()
 
                 messages.success(request, 'Document added successfully.')
-                return redirect('documents:ListDocuments_urls')
 
+                return redirect('documents:ListDocuments_urls')
             except IntegrityError as e:
+
                 messages.error(request, f'An error occurred while adding the document: {e}')
         else:
-            messages.error(request, 'Invalid form data. Please check the fields.')
+
+            print(form.errors)
+
     else:
+
         form = DocumentUploader()
 
-    context = {
-        'form': form,
-    }
-
+    context = {'form': form}
+    print(form)
     return render(request, 'docs/adddocs.html', context)

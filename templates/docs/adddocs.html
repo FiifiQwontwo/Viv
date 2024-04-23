@@ -11,8 +11,9 @@
                             <h4>Add Document</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{% url 'documents:newDocuments_urls' %}" method="POST">
-                                {% csrf_token %}
+                            <form action="{% url 'documents:newDocuments_urls' %}" method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Title</label>
                                     <div class="col-sm-12 col-md-7">
@@ -20,27 +21,25 @@
                                     </div>
                                 </div>
                                 <div class="form-group row mb-4">
-                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Status</label>
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Chapter</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <select class="form-control selectric">
-                                            <option>Publish</option>
-                                            <option>Draft</option>
-                                            <option>Pending</option>
+                                        <select class="form-control selectric" name="chapter">
+                                            <option value="">Select Chapter</option>
+                                            {% for choice in form.chapter.field.choices %}
+                                                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                               
+                                            {% endfor %}
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group row mb-4">
-                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Thumbnail</label>
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Upload the
+                                        Document</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <div id="image-preview" class="image-preview">
-                                            <label for="image-upload" id="image-label">Choose File</label>
-                                            <input type="file" name="thumbnail" id="image-upload"
-                                                   onchange="previewImage(this)">
-                                            <img id="thumbnail-preview" src="#" alt="Thumbnail Preview"
-                                                 style="display: none; max-width: 200px;">
-                                        </div>
+                                        <input type="file" name="content" id="image-upload">
                                     </div>
                                 </div>
+
                                 <div class="form-group row mb-4">
                                     <div class="col-sm-12 col-md-7 offset-md-3">
                                         <button type="submit" class="btn btn-primary">Create Post</button>
@@ -53,16 +52,5 @@
             </div>
         </div>
     </section>
-
-    <script>
-        function previewImage(input) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                document.getElementById('thumbnail-preview').src = e.target.result;
-                document.getElementById('thumbnail-preview').style.display = 'block';
-                document.getElementById('image-label').innerText = 'Change File';
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    </script>
+   
 {% endblock %}
