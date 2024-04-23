@@ -23,15 +23,13 @@ def create_review(request, document_id):
                 lecturer = Lecturer.objects.get(user=request.user)
                 review.reviewer = lecturer
                 review.save()
-                # Redirect to the detail view using the correct parameter name
-                return redirect('documents:Documents_details_urls', id=document_id)
+                return redirect('documents:Documents_details_urls', document_id=document_id)
         else:
             form = ReviewUploads()
 
         return render(request, 'create_review.html', {'form': form, 'document': document})
     else:
-        # Redirect to the detail view using the correct parameter name
-        return redirect('documents:Documents_details_urls', id=document_id)
+        return redirect('documents:Documents_details_urls', {'document': document})
 
 
 def list_reviews(request):
