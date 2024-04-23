@@ -38,7 +38,6 @@ def list_reviews(request):
     if request.user.is_authenticated and request.user.is_lecturer:
         lecturer = Lecturer.objects.get(user=request.user)
 
-        # Filter the reviews by the lecturer
         reviews = Review.objects.filter(reviewer=lecturer)
     else:
         reviews = []
@@ -50,7 +49,6 @@ def student_list_reviews(request):
     if request.user.is_authenticated and request.user.is_student:
         student = Student.objects.get(user=request.user)
 
-        # Filter the reviews by the lecturer
         reviews = Review.objects.filter(student=student)
     else:
         reviews = []
@@ -64,4 +62,3 @@ def all_reviews(request):
         'reviews': reviews
     }
     return render(request, 'all_reviews.html', context)
-
