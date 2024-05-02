@@ -1,12 +1,20 @@
 {% autoescape off %}
-Hi {{ user.email }},
-    Please reset your password with the link below.
-    http://{{ domain }}{% url  'accounts:reset_password_validate_url' uidb64=uid token=token %}
-  <h3>Your Devices:</h3>
-    <ul>
-        {% for user_agent_info_item in user_agent_info %}
-            <li>{{ user_agent_info_item.user_agent }} -</li>
-            <li>{{ user_agent_info_item.created_at }}</li>
-        {% endfor %}
-    </ul>
+
+    
+    <div class="container">
+        <p>Hi {{ user.email.last_name }},</p>
+        <p>Please reset your password with the link below:</p>
+        <p><a href="http://{{ domain }}{% url  'accounts:reset_password_validate_url' uidb64=uid token=token %}">Reset Password</a></p>
+        <h3>Your Devices:</h3>
+        <ul>
+            {% for user_agent_info_item in user_agent_info %}
+                <li>User Agent: {{ user_agent_info_item.user_agent }}</li>
+                <li>Created At: {{ user_agent_info_item.created_at }}</li>
+                <li>IP Address: {{ user_agent_info_item.user_ip }}</li>
+                <li>IP Country: {{ user_agent_info_item.ip_country }}</li>
+
+                                                       ip_country=ip_country
+            {% endfor %}
+        </ul>
+    </div>
 {% endautoescape %}

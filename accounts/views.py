@@ -1,3 +1,4 @@
+import requests
 from django.contrib import messages, auth
 from django.contrib.auth import get_user_model, authenticate, login as auth_login
 from django.contrib.auth.tokens import default_token_generator
@@ -199,14 +200,20 @@ def custom_404(request, exception):
 def forgetPassword(request):
     if request.method == 'POST':
         user_agents_str = get_user_agents(request)
+        user_ip = request.META.get('REMOTE_ADDR')
+        ip_info = requests.get(f'http://ip-api.com/json/{user_ip}').json()
+        ip_country = ip_info.get('country', '')
 
         try:
             anonymous_user = CustomUser.objects.get(email='anonymous')
         except CustomUser.DoesNotExist:
             anonymous_user = CustomUser.objects.create(email='anonymous')
-        user_agent_info = UserAgentInfo.objects.create(user=anonymous_user, user_agent=user_agents_str)
+        user_agent_info = UserAgentInfo.objects.create(user=anonymous_user, user_agent=user_agents_str, user_ip=user_ip,
+                                                       ip_country=ip_country)
 
         email = request.POST.get('email', '')
+        if CustomUser.objects.filter(email=email).exists():
+            user = CustomUser.objects.get(email__exact=email)
         if CustomUser.objects.filter(email=email).exists():
             user = CustomUser.objects.get(email__exact=email)
 
