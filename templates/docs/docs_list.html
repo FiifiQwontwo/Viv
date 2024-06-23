@@ -1,3 +1,103 @@
-{%  extends 'base.html' %}
-{% block title %} DefensePro|Dashboard  {% endblock %}
-{% load static %}
+{% extends 'base.html' %}
+{% load custom_filter %}
+{% block title %}DefensePro | Dashboard{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="section-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        {% if aocs %}
+                        <h4>All Documents</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" id="tableExport" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Content</th>
+                                        <th>Chapter</th>
+                                        <th>Student</th>
+                                        <th>Reviewed Status</th>
+                                        <th>Reviewed Comment</th>
+                                        <th>Uploaded date</th>
+                                        <th>Last Updated</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for doc in aocs %}
+                                    <tr>
+                                        <td>{{ doc.title }}</td>
+                                        <td><a href="{{ doc.content.url }}" target="_blank">{{ doc.content.url }}</a></td>
+                                        <td>{{ doc.chapter }}</td>
+                                        <td>{{ doc.student }}</td>
+                                        <td>
+                                            {% for review in aocs_reviews|get_item:doc.id %}
+                                            {{ review.status}}<br>
+                                            {% endfor %}
+                                        </td>
+                                        <td>
+                                            {% for review in aocs_reviews|get_item:doc.id %}
+                                            {{ review.comment }}<br>
+                                            {% endfor %}
+                                        </td>
+                                        <td>{{ doc.created_at|date:"Y/m/d" }}</td>
+                                        <td>{{ doc.updated_at|date:"Y/m/d" }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {% endif %}
+                 {% if docs %}
+                        <h4>{{ student }} Documents</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" id="tableExport" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Content</th>
+                                        <th>Chapter</th>
+                                        <th>Reviewed Status</th>
+                                        <th>Reviewed Comment</th>
+                                        <th>Uploaded date</th>
+                                        <th>Last Updated</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for docs in docs %}
+                                    <tr>
+                                        <td>{{ docs.title }}</td>
+                                        <td><a href="{{ docs.content.url }}" target="_blank">{{ docs.content.url }}</a></td>
+                                        <td>{{ docs.chapter }}</td>
+                                        <td>
+                                            {% for review in docs_reviews|get_item:docs.id %}
+                                            {{ review.status}}<br>
+                                            {% endfor %}
+                                        </td>
+                                        <td>
+                                            {% for review in docs_reviews|get_item:docs.id %}
+                                            {{ review.comment }}<br>
+                                            {% endfor %}
+                                        </td>
+                                        <td>{{ docs.created_at|date:"Y/m/d" }}</td>
+                                        <td>{{ docs.updated_at|date:"Y/m/d" }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {% endif %}
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

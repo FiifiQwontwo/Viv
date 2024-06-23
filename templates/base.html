@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="{% static 'ways/assets/bundles/summernote/summernote-bs4.css' %}">
     <link rel="stylesheet" href="{% static 'ways/assets/bundles/jquery-selectric/selectric.css' %}">
     <link rel="stylesheet" href="{% static 'ways/assets/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.css' %}">
+    <link rel="stylesheet" href="{% static 'ways/assets/bundles/datatables/datatables.min.css' %}">
+    <link rel="stylesheet"
+          href="{% static 'ways/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
     <link rel='shortcut icon' type='image/x-icon' href='{% static 'ways/assets/img/asd.png' %}'/>
 </head>
 <body>
@@ -99,17 +104,18 @@
                         <ul class="dropdown-menu">
                             {% if user.is_lecturer %}
                                 <li><a class="nav-link" href="{% url 'reviews:list_review_url' %}">List Reviews</a></li>
-{#                                 <li><a class="nav-link" href="{% url 'reviews:create_review_url' document_id=document.id %}">Create Review</a></li>#}
+                                {#                                 <li><a class="nav-link" href="{% url 'reviews:create_review_url' document_id=document.id %}">Create Review</a></li>#}
                             {% elif user.is_student %}
                                 <li><a class="nav-link" href="{% url 'reviews:student_list_review_url' %}">List
                                     Reviews</a></li>
                             {% elif user.is_staff %}
-                                <li><a class="nav-link" href="{% url 'reviews:all_reviews_urls' %}">List Reviews</a></li>
-                               
+                                <li><a class="nav-link" href="{% url 'reviews:all_reviews_urls' %}">List Reviews</a>
+                                </li>
+
                             {% else %}
                                 <li><a class="nav-link" href="#">List Reviews</a></li>
                             {% endif %}
-                            
+
                         </ul>
                     </li>
                     {% if user.is_staff or user.is_student %}
@@ -259,6 +265,15 @@
 <script src="{% static 'ways/assets/bundles/jquery-ui/jquery-ui.min.js' %}"></script>
 <script src="{% static 'ways/assets/js/page/advance-table.js' %}"></script>
 <script src="{% static 'ways/assets/js/page/index.js' %}"></script>
+<script src="{% static 'ways/assets/bundles/datatables/datatables.min.js' %}"></script>
+<script src="{% static 'ways/assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'ways/assets/bundles/datatables/export-tables/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'ways/assets/bundles/datatables/export-tables/buttons.flash.min.js' %}"></script>
+<script src="{% static 'ways/assets/bundles/datatables/export-tables/jszip.min.js' %}"></script>
+<script src="{% static 'ways/assets/bundles/datatables/export-tables/pdfmake.min.js' %}"></script>
+<script src="{% static 'ways/assets/bundles/datatables/export-tables/vfs_fonts.js' %}"></script>
+<script src="{% static 'ways/assets/bundles/datatables/export-tables/buttons.print.min.js' %}"></script>
+<script src="{% static 'ways/assets/js/page/datatables.js' %}"></script>
 <script src="{% static 'ways/assets/js/scripts.js' %}"></script>
 <script src="{% static 'ways/assets/js/custom.js' %}"></script>
 <script src="{% static 'ways/assets/js/page/create-post.js' %}"></script>

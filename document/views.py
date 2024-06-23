@@ -1,27 +1,63 @@
 from MySQLdb._exceptions import IntegrityError
 from django.contrib import messages
 from django.http import Http404
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+
+from reviews.models import Review
 from .forms import DocumentUploader
 from .models import Document
+from accounts.models import Student, CustomUser
 
 
 # Create your views here.
 
 
+# def ListDocuments(request):
+#     try:
+#         if request.user.is_staff or request.user.is_lecturer:
+#             docs = Document.objects.all()
+#         else:
+#             docs = Document.objects.filter(student=request.user)
+#
+#         if not docs.exists() and not (request.user.is_staff or request.user.is_lecturer):
+#             return render(request, 'docs/docs_list.html', {'docs': docs})
+#         print(docs)
+#         return render(request, 'docs/docs_list.html', {'docs': docs})
+#
+#     except Exception as e:
+#         raise Http404()
+
 def ListDocuments(request):
-    try:
-        if request.user.is_staff or request.user.is_lecturer:
-            docs = Document.objects.all()
-        else:
-            docs = Document.objects.filter(student=request.user)
+    context = {}
 
-        if not docs.exists() and not (request.user.is_staff or request.user.is_lecturer):
-            return render(request, 'docs/docs_list.html', {'docs': docs})
+    if request.user.is_staff:
+        aocs = Document.objects.all()
+        aocs_reviews = {doc.id: doc.reviews.all() for doc in aocs}
+        context.update({
+            'aocs': aocs,
+            'aocs_reviews': aocs_reviews,
+        })
+    elif hasattr(request.user, 'is_lecturer') and request.user.is_lecturer:
+        reviews = Review.objects.filter(reviewer=request.user.lecturer)
+        reviewed_docs = Document.objects.filter(reviews__in=reviews).distinct()
+        reviewed_docs_reviews = {doc.id: doc.reviews.all() for doc in reviewed_docs}
+        context.update({
+            'reviewed_docs': reviewed_docs,
+            'reviewed_docs_reviews': reviewed_docs_reviews,
+        })
+    else:
+        student = get_object_or_404(Student, user=request.user)
+        docs = Document.objects.filter(student=student)
+        latest_docs = docs.order_by('-created_at').first()
+        docs_reviews = {doc.id: doc.reviews.all() for doc in docs}
+        context.update({
+            'latest_docs': latest_docs,
+            'docs': docs,
+            'docs_reviews': docs_reviews,
+            'student': student,
+        })
 
-        return render(request, 'docs/docs_list.html', {'docs': docs})
-    except Exception as e:
-        raise Http404()
+    return render(request, 'docs/docs_list.html', context)
 
 
 def docDetails(request, id):
