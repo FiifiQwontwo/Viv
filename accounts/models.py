@@ -4,7 +4,7 @@ from django.contrib.auth.models import PermissionsMixin, AbstractBaseUser
 from django.core.validators import RegexValidator
 from django.db import models
 from decouple import config
-from course.models import Course
+from course.models import Program
 from djangoProject12.slugify import slugify
 from faculty.models import Faculty
 from .manager import CustomUserManager
@@ -74,7 +74,7 @@ class Student(models.Model):
                                     )
     level = models.CharField(max_length=15, choices=LevelChoices, help_text='your student level', blank=True, null=True)
     phone = models.CharField(max_length=15, blank=True, null=True)
-    course = models.ForeignKey(Course, on_delete=models.RESTRICT, related_name='students_course', blank=True, null=True)
+    program = models.ForeignKey(Program, on_delete=models.RESTRICT, related_name='students_course', blank=True, null=True)
     supervisor = models.ForeignKey(Lecturer, on_delete=models.RESTRICT, related_name='Supervisor', blank=True,
                                    null=True)
 

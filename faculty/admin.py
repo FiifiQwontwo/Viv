@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Faculty
-from course.models import Course
+from course.models import Program
 from accounts.models import Student, Lecturer, CustomUser
 from reviews.models import Review
 from chapter.models import Chapter
@@ -9,9 +9,9 @@ from project.models import Project
 
 # Register your models here.
 
-admin.site.site_header = "Lunch Lady"
-admin.site.site_title = "Lunch Lady Admin"
-admin.site.index_title = "Lunch Lady"
+admin.site.site_header = "DefensePro Administrator"
+admin.site.site_title  = "DefensePro Administrator"
+admin.site.index_title = "DefensePro Administrator"
 
 
 @admin.register(Faculty)
@@ -21,18 +21,18 @@ class FacultyAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('faculty_name',)}
 
 
-@admin.register(Course)
-class CourseAdmin(admin.ModelAdmin):
-    search_fields = ['faculty', 'course_name']
-    list_display = ['course_name', 'faculty']
+@admin.register(Program)
+class ProgramAdmin(admin.ModelAdmin):
+    search_fields = ['faculty', 'program_name']
+    list_display = ['program_name', 'faculty']
     list_per_page = 20
-    prepopulated_fields = {'slug': ('course_name',)}
+    prepopulated_fields = {'slug': ('program_name',)}
 
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'index_number', 'level', 'course')
-    list_filter = ('level', 'course')
+    list_display = ('first_name', 'last_name', 'index_number', 'level', 'program')
+    list_filter = ('level', 'program')
     search_fields = ('first_name', 'last_name', 'index_number')
     ordering = ('last_name', 'first_name')
     fieldsets = ()

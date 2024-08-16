@@ -51,9 +51,9 @@
                                    class="form-control bg-transparent"/>
                         </div>
                         <div class="fv-row mb-8">
-                            <select id="course" class="form-control" name="course">
-                                <option value="">Select Course</option>
-                                {% for choice in form.course.field.choices %}
+                            <select id="program" class="form-control" name="program">
+                                <option value="">Select Program</option>
+                                {% for choice in form.program.field.choices %}
                                     <option value="{{ choice.0 }}">{{ choice.1 }}</option>
                                 {% endfor %}
                             </select>

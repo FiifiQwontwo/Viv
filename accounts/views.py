@@ -9,7 +9,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from faculty.models import Faculty
-from course.models import Course
+from course.models import Program
 from djangoProject12 import settings
 from .forms import StudentRegistrationForm, LecturerRegistrationForm
 from .models import Student, UserAgentInfo, Lecturer, CustomUser
@@ -68,7 +68,7 @@ def student_signup(request):
                 last_name=form.cleaned_data['last_name'],
                 index_number=form.cleaned_data['index_number'],
                 phone=form.cleaned_data['phone'],
-                course=form.cleaned_data['course'],
+                program=form.cleaned_data['program'],
                 level=form.cleaned_data['level'],
                 supervisor=form.cleaned_data['supervisor'],
 
@@ -97,7 +97,7 @@ def student_signup(request):
             return redirect('/accounts/login/?command=verification&email=' + email)
     else:
         form = StudentRegistrationForm()
-        courses = Course.objects.all()
+        program = Program.objects.all()
 
     return render(request, 'login/student_signup.html', {'form': form})
 

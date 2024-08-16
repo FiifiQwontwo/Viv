@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import CustomUser, Student, LevelChoices, Lecturer, LecTitle
 from faculty.models import Faculty
-from course.models import Course
+from course.models import Program
 
 
 class UserLoginForm(forms.Form):
@@ -17,7 +17,7 @@ class StudentRegistrationForm(UserCreationForm):
 
     first_name = forms.CharField(label='First Name', max_length=50)
     last_name = forms.CharField(label='Last Name', max_length=50)
-    course = forms.ModelChoiceField(label='course', queryset=Course.objects.all())
+    program = forms.ModelChoiceField(label='program', queryset=Program.objects.all())
     supervisor = forms.ModelChoiceField(label='supervisor', queryset=Lecturer.objects.all())
     index_number = forms.CharField(label='Index Number', max_length=15)
     phone = forms.CharField(label='Phone Number', max_length=15)
@@ -40,7 +40,7 @@ class LecturerRegistrationForm(UserCreationForm):
 class StudentProfileForm(forms.ModelForm):
     class Meta:
         model = Student
-        fields = ('first_name', 'last_name', 'index_number', 'level', 'course', 'phone', 'supervisor')
+        fields = ('first_name', 'last_name', 'index_number', 'level', 'program', 'phone', 'supervisor')
 
 
 class LecturerProfileForm(forms.ModelForm):
